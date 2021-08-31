@@ -24,6 +24,13 @@ const Container = styled.div`
         padding: 40px 20px;
     }
 `;
+const Wrapper = styled.div`
+    max-width: 900px;
+    display: flex;
+    justify-conent: center;
+    margin-left: auto;
+    margin-right: auto;
+`
 
 const Bridge = () => {
 
@@ -31,8 +38,10 @@ const Bridge = () => {
         <>
             <Header/>
             <Container>
-                <LeftPane />
-                <RightPane />
+                <Wrapper>
+                    <LeftPane />
+                    <RightPane />
+                </Wrapper>
             </Container>
         </>
     )

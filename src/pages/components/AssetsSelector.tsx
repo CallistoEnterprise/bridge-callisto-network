@@ -161,7 +161,7 @@ const AssetsSelector = ({curToken, changeAsset, fromNet, balance}) => {
                             <StyledButton2
                                 onClick={(e) => handleSelect(e, item)}
                                 key={item.symbol}
-                                disabled={item.addresses[`${fromNet.symbol}`] === ""}
+                                disabled={fromNet.symbol === 'BNB' && item.symbol === "ETH" || fromNet.symbol === 'ETH' && item.symbol === "BNB"}
                             >
                                 <StyledImg src={getImageUrl(item.symbol)} alt="logo_img"/>
                                 <div>

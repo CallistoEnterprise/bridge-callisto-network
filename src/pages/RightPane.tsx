@@ -34,7 +34,6 @@ const Container = styled.div`
         width: 100%;
         margin: 20px 0;
         padding: 20px;
-
     }
 `;
 
@@ -109,6 +108,12 @@ const StyledText = styled.p`
     font-family: ${Theme.fonts.textBold};
     margin-left: 10px;
 `
+const StyledText2 = styled.p`
+    color: #f70556;
+    font-family: ${Theme.fonts.textBold};
+    margin-top: 10px;
+    text-align: center;    
+`
 
 const RightPane: React.FC = () => {
     const { chainId, account, library } = useActiveWeb3React()
@@ -124,6 +129,7 @@ const RightPane: React.FC = () => {
     const [prevHash, setPrevHash] = useState("")
     const chainError = (chainId !== parseInt(fromNetwork.chainId) || !chainId) && step === 0
 
+    const networkPairError = curAsset.addresses[`${fromNetwork.symbol}`] === "" || curAsset.addresses[`${toNetwork.symbol}`] === ""
 
     const balances = useNativeCoinBalance(fromNetwork, curAsset)
     const validBalance = parseInt(fromNetwork.chainId) === chainId ? balances : "0.00"
@@ -131,7 +137,7 @@ const RightPane: React.FC = () => {
     useEffect(() => {
         const init = async () => {
             const tx = await window.localStorage.getItem("prevData");
-            setPrevHash(tx)
+            setPrevHash("")
         }
         init()
     }, [])
@@ -147,19 +153,38 @@ const RightPane: React.FC = () => {
             setFromNetwork(Networks[index])
             if(Networks[index].symbol === toNetwork.symbol ) {
                 const newIdx = index + 1;
-                if( newIdx > 2 ) {
-                    setToNetwork(Networks[0])
-                } else {
-                    setToNetwork(Networks[newIdx])
-                }
+                // if(curAsset.symbol === "CLO"){
+                    if( newIdx > 2 ) {
+                        setToNetwork(Networks[0])
+                    } else {
+                        setToNetwork(Networks[newIdx])
+                    }
+                // } else if(Networks[index].symbol === "CLO") {
+                //     if( newIdx > 2 ) {
+                //         setToNetwork(Networks[0])
+                //     } else {
+                //         setToNetwork(Networks[newIdx])
+                //     }
+                // } else if( curAsset.symbol === "BNB" && Networks[index].symbol === "ETH") {
+                //     setToNetwork(Networks[0])
+                // } else if( newIdx > 2 ) {
+                //         setToNetwork(Networks[0])
+                // } else {
+                //     setToNetwork(Networks[newIdx])
+                // }
             }
 
-        } else if(Networks[index].symbol !== fromNetwork.symbol )
+        } else if(Networks[index].symbol !== fromNetwork.symbol && curAsset.addresses[`${Networks[index].symbol}`] !== "")
             setToNetwork(Networks[index])
     }
 
     function handleAsset(item) {
         setCurAsset(item)
+        if(item.addresses[toNetwork.symbol] === ""){
+            const findIdx = Networks.findIndex((_item) => _item.symbol !== fromNetwork.symbol && item.addresses[_item.symbol] !== "")
+            if( findIdx > 0 )
+                setToNetwork(Networks[findIdx])
+        }
     }
 
     async function handleSwap() {
@@ -231,7 +256,8 @@ const RightPane: React.FC = () => {
 
     async function handleClaim(){
         if( txHash )
-        setIsPendingTx(true)
+            setIsPendingTx(true)
+
         const {signatures, respJSON} = await getSignatures(txHash, fromNetwork.chainId)
         if( signatures.length !== 3 ) {
             setIsPendingTx(false)
@@ -251,6 +277,7 @@ const RightPane: React.FC = () => {
             setIsPendingTx(false)
         }
     }
+
     async function handlePrevClaim(){
         if( !prevHash ) {
             alert("Invalid transaction hash.")
@@ -302,6 +329,7 @@ const RightPane: React.FC = () => {
                 </DropConMob>
                 <ToCard curNet={toNetwork} changeNetwork={(idx) => handleChangeNetwork(idx, "2")}/>
             </NetworkSection>
+            { networkPairError && <StyledText2>Invalid Network Pair. Please select another network pair.</StyledText2>}
             <Spacer height="30px" />
             <AddNetworkSection curNet={fromNetwork} toNet={toNetwork} step={step}/>
             <Spacer height="30px" />
@@ -328,11 +356,12 @@ const RightPane: React.FC = () => {
                     </StyledButton>:
                     <StyledButton 
                         disabled={
+                            networkPairError && (step === 1) ||
                             chainError ||
                             isPendingTx ||
                             amt === "" ||
-                            (step === 1 && chainId !== parseInt(fromNetwork.chainId))||
-                            parseInt(amt) >= parseInt(validBalance.toString())
+                            (step === 1 && chainId !== parseInt(fromNetwork.chainId)) ||
+                            (step === 1) && parseFloat(amt) >= parseFloat(validBalance.toString())
                         }
                         onClick={handleSwap}
                     >

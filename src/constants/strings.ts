@@ -101,7 +101,7 @@ export const tokenList = [
             BNB: 18,
             ETH: 18,
         },
-
+        disable: "",
         addresses: {
             CLO: "0x0000000000000000000000000000000000000001",
             BNB: "0xCcbf1C9E8b4f2cDF3Bfba1098b8f56f97d219D53",
@@ -120,10 +120,11 @@ export const tokenList = [
             BNB: 18,
             ETH: 18,
         },
+        disable: "ETH",
         addresses: {
             CLO: "0xCC78D0A86B0c0a3b32DEBd773Ec815130F9527CF",
-            BNB: "",
-            ETH: "0x0000000000000000000000000000000000000003"
+            BNB: "0x0000000000000000000000000000000000000003",
+            ETH: ""
         }
     },{
         name: "ETH",
@@ -133,6 +134,7 @@ export const tokenList = [
             BNB: 18,
             ETH: 18,
         },
+        disable: "BNB",
         addresses: {
             CLO: "0xcC00860947035a26Ffe24EcB1301ffAd3a89f910",
             BNB: "",
@@ -164,7 +166,7 @@ export const Networks = [
         devNet: "mainnet",
         img: Assets.chaineth,
         chainId: "1",
-        rpcs: ["https://mainnet.infura.io/v3/d819f1add1a34a60adab4df578e0e741"],
+        rpcs: ["https://eth-mainnet.alchemyapi.io/v2/u9rCarAf0yB8i6wnRaZvqM8Zrd8bgG1b"],
         explorer: "https://etherscan.io/"
     },
 ]
