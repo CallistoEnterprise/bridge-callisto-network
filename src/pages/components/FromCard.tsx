@@ -19,7 +19,7 @@ export const Title = styled.p`
 `;
 
 export const CardCon = styled.div`
-    padding: 10px;
+    padding: 30px 15px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@ export const Row = styled.div`
 `;
 
 export const Img = styled.img`
-    height: 70px;
+    height: 50px;
 `;
 
 export const ConnectionDiv = styled.div`
@@ -46,6 +46,10 @@ export const ConnectionDiv = styled.div`
 `;
 export const NetImg = styled.img`
     width: 20px;
+`;
+export const ChainImg = styled.img`
+    width: 20px;
+    margin-right: 10px;
 `;
 
 export const TextCon = styled.div`
@@ -111,7 +115,7 @@ export const ItemCon = styled.div`
 `;
 
 const FromCard = ({curNet, changeNetwork}) => {
-    const { account } = useWeb3React()
+    const { account, chainId } = useWeb3React()
     const [showMenu, setShowMenu] = useState(false);
 
     function handleMenu() {
@@ -128,7 +132,7 @@ const FromCard = ({curNet, changeNetwork}) => {
             <CardCon>
                 <Row>
                     <Img src={curNet.img} alt="image" />
-                    {account ? <ConnectionDiv>
+                    {account && parseInt(curNet.chainId) === chainId ? <ConnectionDiv>
                         <NetImg src="https://dex-bin.bnbstatic.com/static/images/metamask.svg" alt="net_image" />
                         <Spacer height="5px" />
                         <TextCon>
@@ -156,6 +160,7 @@ const FromCard = ({curNet, changeNetwork}) => {
                             <ItemContainer key={item.name}>
                                 <ItemCon onClick={() =>handleItem(index)}>
                                     <Row>
+                                        <ChainImg src={item.img} alt="icon"/>
                                         <StyledText>{item.name} {item.devNet}</StyledText>
                                         {
                                             curNet.symbol === item.symbol && <FaCheck size = {14} color={Theme.colors.primary}/>

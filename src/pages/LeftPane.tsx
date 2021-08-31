@@ -42,26 +42,25 @@ const StyledLink = styled.a`
 
 const StyledImg = styled.img`
     margin: 50px 0;
+    margin-top: 40px;
     @media screen and (max-width: 600px){
-        width: 240px;
-        margin: 20px 0;
+        display: none;
     }
 `;
-const Bridge: React.FC = () => {
+const LeftPane: React.FC = () => {
 
     return (
         <Container>
             <Title>Bridge</Title>
             <Spacer height="20px" />
             <StyledText>Allow user to transfer tokens from one chain to another.</StyledText>
-            <Spacer height="20px" />
-            <StyledLink>View Assets Lists</StyledLink>
+            {/* <Spacer height="20px" />
+            <StyledLink>View Assets Lists</StyledLink> */}
             <Spacer height="10px" />
             <StyledLink>User Guide</StyledLink>
-            <Spacer height="40px" />
             <StyledImg src={Assets.back} />
         </Container>
     )
 }
 
-export default Bridge;
+export default LeftPane

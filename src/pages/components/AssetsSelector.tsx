@@ -46,12 +46,14 @@ const StyledErrorText = styled.p`
     font-family: ${Theme.fonts.text};
     line-height: 18px;
     color: #f70556;
+    white-space: nowrap;
 `;
 const StyledText2 = styled.p`
     font-size: 12px;
     font-family: ${Theme.fonts.text};
     line-height: 18px;
     color: ${Theme.colors.secondary};
+    display: inline;
 `;
 
 const StyledImg = styled.img`
@@ -135,8 +137,8 @@ const AssetsSelector = ({curToken, changeAsset, fromNet, balance}) => {
                 </LogoDiv>
                 {
                     parseInt(fromNet.chainId) === chainId ?
-                    <StyledText>{balance} {curToken.symbol}</StyledText>:
-                    <StyledErrorText>Switch Network</StyledErrorText>
+                    <StyledText>Balance: {balance} {curToken.symbol}</StyledText>:
+                    <StyledErrorText><StyledText2>Balance:</StyledText2> (Switch Network)</StyledErrorText>
                 }
             </StyledButton>
             <StyledModal

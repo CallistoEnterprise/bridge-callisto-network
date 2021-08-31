@@ -6,6 +6,7 @@ import RightPane from './RightPane';
 
 const Container = styled.div`
     display: flex;
+    width: 100%;
     background-color: #f5f5f5;
     padding: 40px 20%;
     justify-conent: center;

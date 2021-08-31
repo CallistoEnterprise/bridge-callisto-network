@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react'
+import { useWeb3React } from '@web3-react/core';
 import Spacer from 'components/Spacer';
 import { Networks } from 'constants/strings';
 import { Theme } from 'constants/theme';
@@ -19,7 +20,7 @@ export const Title = styled.p`
 `;
 
 export const CardCon = styled.div`
-    padding: 10px;
+    padding: 30px 15px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -37,7 +38,7 @@ export const Row = styled.div`
 
 export const Img = styled.img`
     // width: 70px;
-    height: 70px;
+    height: 50px;
 `;
 
 export const ConnectionDiv = styled.div`
@@ -110,8 +111,14 @@ export const ItemCon = styled.div`
     width: 100%;
     padding: 5px 10px;
 `;
+export const ChainImg = styled.img`
+    width: 20px;
+    margin-right: 10px;
+`;
 
-const FromCard = ({curNet, changeNetwork}) => {
+
+const ToCard = ({curNet, changeNetwork}) => {
+    const { account, chainId } = useWeb3React()
     const [showMenu, setShowMenu] = useState(false);
 
     function handleMenu() {
@@ -128,6 +135,14 @@ const FromCard = ({curNet, changeNetwork}) => {
             <CardCon>
                 <Row>
                     <Img src={curNet.img} alt="image" />
+                    {account && parseInt(curNet.chainId) === chainId && <ConnectionDiv>
+                        <NetImg src="https://dex-bin.bnbstatic.com/static/images/metamask.svg" alt="net_image" />
+                        <Spacer height="5px" />
+                        <TextCon>
+                            <SmallText color={Theme.colors.primary}>Connected</SmallText>
+                        </TextCon>
+                    </ConnectionDiv>
+                    }
                 </Row>
                 <Spacer height="10px" />
                 <Row>
@@ -147,6 +162,7 @@ const FromCard = ({curNet, changeNetwork}) => {
                             <ItemContainer key={item.name}>
                                 <ItemCon onClick={() =>handleItem(index)}>
                                     <Row>
+                                        <ChainImg src={item.img} alt="icon"/>
                                         <StyledText>{item.name} {item.devNet}</StyledText>
                                         {
                                             curNet.symbol === item.symbol && <FaCheck size = {14} color={Theme.colors.primary}/>
@@ -163,4 +179,4 @@ const FromCard = ({curNet, changeNetwork}) => {
     )
 }
 
-export default FromCard;
+export default ToCard

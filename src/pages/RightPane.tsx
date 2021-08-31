@@ -110,7 +110,6 @@ const StyledText = styled.p`
     margin-left: 10px;
 `
 
-
 const RightPane: React.FC = () => {
     const { chainId, account, library } = useActiveWeb3React()
     const [step, setStep] = useState(0)
