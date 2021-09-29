@@ -1,7 +1,7 @@
 import React from 'react'
 import { Theme } from 'constants/theme';
 import styled from 'styled-components';
-import { escapeRegExp } from 'utils'
+// import { escapeRegExp } from 'utils'
 
 const Container = styled.div`
     width: calc(100%);

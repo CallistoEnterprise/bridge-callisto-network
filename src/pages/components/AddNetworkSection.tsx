@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { setupEthereumNetwork, setupNetwork } from 'utils/wallet';
@@ -6,6 +6,7 @@ import Spacer from 'components/Spacer';
 import { Theme } from 'constants/theme';
 import styled from 'styled-components';
 import useAuth from 'hooks/useAuth';
+import WalletModal from './WalletModal';
 
 const Container = styled.div`
     width: 100%;
@@ -59,39 +60,38 @@ export const NetImg = styled.img`
     margin-right: 10px;
 `;
 
-const Divider = styled.div`
-    display: none;
-    @media screen and (max-width: 600px) {
-        display: block;
-        height: 20px;
-    }
-`
-
 export const injected = new InjectedConnector({
     supportedChainIds: [1, 56, 820]
 });
 
 const AddNetworkSection = ({curNet, toNet, step}) => {
-    const { account, activate } = useWeb3React()
-    const { logout } = useAuth()
+    const { account } = useWeb3React()
+    const { login, logout } = useAuth()
     const accountEllipsis = account ? `${account.substring(0, 6)}...${account.substring(account.length - 6)}` : null;
 
-    async function handleConnectToMetamask() {
-        activate(injected);
+    const [isOpen, setIsOpen] = useState(false)
+
+    async function handleConnectToWallet(connector) {
+        setIsOpen(false);
+        login(connector, curNet);
         const network = step === 2 ? toNet : curNet
         if (network.symbol === "ETH") {
             await setupEthereumNetwork(network)
         } else {
             await setupNetwork(network)
-        }
+        }        
+    }
+
+    function toggleModal(e) {
+        setIsOpen(!isOpen)
     }
 
     return (
         <Container>
-            {!account && <StyledText color="#f70556">If you have not connected to your MetaMask yet, please connect.</StyledText>}
+            {!account && <StyledText color="#f70556">Please log in to MetaMask if you are not already connected.</StyledText>}
             <Spacer height="10px" />
             <Row>
-                <Con onClick={handleConnectToMetamask} bk={Theme.colors.primary}>
+                <Con onClick={toggleModal} bk={Theme.colors.primary}>
                     <StyledTextBold color={Theme.colors.secondary}>{accountEllipsis !== null? accountEllipsis : `Connect Wallet / Add Network`}</StyledTextBold>
                     {
                         account && <RowFlex>
@@ -100,11 +100,16 @@ const AddNetworkSection = ({curNet, toNet, step}) => {
                         </RowFlex>
                     }
                 </Con>
-                <Divider />
-                {account && <Con onClick={()=>logout()} bk='rgba(0, 0, 0, .5)'>
-                    <StyledTextBold color={Theme.colors.secondary}>Disconnect</StyledTextBold>
-                </Con>}
             </Row>
+            <WalletModal 
+                isOpen={isOpen}
+                toggleModal={toggleModal}
+                handleConnect={(connector) => handleConnectToWallet(connector)}
+                logout={() => {
+                    setIsOpen(false)
+                    logout()
+                }}
+            />
         </Container>
     )
 }

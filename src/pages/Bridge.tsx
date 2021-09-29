@@ -6,7 +6,6 @@ import RightPane from './RightPane';
 
 const Container = styled.div`
     display: flex;
-    width: 100%;
     background-color: #f5f5f5;
     padding: 40px 20%;
     justify-conent: center;
@@ -24,13 +23,6 @@ const Container = styled.div`
         padding: 40px 20px;
     }
 `;
-const Wrapper = styled.div`
-    max-width: 900px;
-    display: flex;
-    justify-conent: center;
-    margin-left: auto;
-    margin-right: auto;
-`
 
 const Bridge = () => {
 
@@ -38,10 +30,8 @@ const Bridge = () => {
         <>
             <Header/>
             <Container>
-                <Wrapper>
-                    <LeftPane />
-                    <RightPane />
-                </Wrapper>
+                <LeftPane />
+                <RightPane />
             </Container>
         </>
     )

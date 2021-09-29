@@ -5,6 +5,7 @@ import { Networks } from 'constants/strings';
 import { Theme } from 'constants/theme';
 import styled from 'styled-components';
 import { FaAngleDown, FaCheck } from 'react-icons/fa';
+import { SpacerH } from './ToCard';
 
 export const Container = styled.div`
     width: calc(100% - 80px);
@@ -19,7 +20,7 @@ export const Title = styled.p`
 `;
 
 export const CardCon = styled.div`
-    padding: 30px 15px;
+    padding: 10px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -36,7 +37,7 @@ export const Row = styled.div`
 `;
 
 export const Img = styled.img`
-    height: 50px;
+    height: 70px;
 `;
 
 export const ConnectionDiv = styled.div`
@@ -46,10 +47,6 @@ export const ConnectionDiv = styled.div`
 `;
 export const NetImg = styled.img`
     width: 20px;
-`;
-export const ChainImg = styled.img`
-    width: 20px;
-    margin-right: 10px;
 `;
 
 export const TextCon = styled.div`
@@ -115,7 +112,7 @@ export const ItemCon = styled.div`
 `;
 
 const FromCard = ({curNet, changeNetwork}) => {
-    const { account, chainId } = useWeb3React()
+    const { account } = useWeb3React()
     const [showMenu, setShowMenu] = useState(false);
 
     function handleMenu() {
@@ -132,7 +129,7 @@ const FromCard = ({curNet, changeNetwork}) => {
             <CardCon>
                 <Row>
                     <Img src={curNet.img} alt="image" />
-                    {account && parseInt(curNet.chainId) === chainId ? <ConnectionDiv>
+                    {account ? <ConnectionDiv>
                         <NetImg src="https://dex-bin.bnbstatic.com/static/images/metamask.svg" alt="net_image" />
                         <Spacer height="5px" />
                         <TextCon>
@@ -146,7 +143,7 @@ const FromCard = ({curNet, changeNetwork}) => {
                 <Row>
                     <div>
                         <StyledText>{curNet.name}</StyledText>
-                        <StyledText2>{curNet.devNet}</StyledText2>
+                        {/* <StyledText2>{curNet.devNet}</StyledText2> */}
                     </div>
                     <DropCon onClick={handleMenu}>
                         <FaAngleDown size={18} color={Theme.colors.secondary} />
@@ -160,8 +157,8 @@ const FromCard = ({curNet, changeNetwork}) => {
                             <ItemContainer key={item.name}>
                                 <ItemCon onClick={() =>handleItem(index)}>
                                     <Row>
-                                        <ChainImg src={item.img} alt="icon"/>
-                                        <StyledText>{item.name} {item.devNet}</StyledText>
+                                        <StyledText>{item.name}</StyledText>
+                                        <SpacerH width="10px" />
                                         {
                                             curNet.symbol === item.symbol && <FaCheck size = {14} color={Theme.colors.primary}/>
                                         }

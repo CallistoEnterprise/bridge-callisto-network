@@ -39,7 +39,7 @@ const AmtInput = ({value, handleChange}) => {
     }
     return (
         <Container>
-            <Title>Amount</Title>
+            <Title>Amount to Swap</Title>
             <StyledInput
                 placeholder="Input amount."
                 value={value}

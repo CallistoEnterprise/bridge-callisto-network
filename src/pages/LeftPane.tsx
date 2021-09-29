@@ -42,25 +42,27 @@ const StyledLink = styled.a`
 
 const StyledImg = styled.img`
     margin: 50px 0;
-    margin-top: 40px;
     @media screen and (max-width: 600px){
-        display: none;
+        width: 240px;
+        margin: 20px 0;
     }
 `;
-const LeftPane: React.FC = () => {
+
+const Bridge: React.FC = () => {
 
     return (
         <Container>
-            <Title>Bridge</Title>
+            <Title>Callisto Bridge</Title>
             <Spacer height="20px" />
             <StyledText>Allow user to transfer tokens from one chain to another.</StyledText>
-            {/* <Spacer height="20px" />
-            <StyledLink>View Assets Lists</StyledLink> */}
+            <Spacer height="20px" />
+            <StyledLink>View Assets Lists</StyledLink>
             <Spacer height="10px" />
-            <StyledLink>User Guide</StyledLink>
+            <StyledLink href="https://callisto.network/cross-chain-bridges-security-model/" target="_blank">Callisto Bridge Security Model</StyledLink>
+            <Spacer height="40px" />
             <StyledImg src={Assets.back} />
         </Container>
     )
 }
 
-export default LeftPane
+export default Bridge;

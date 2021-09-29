@@ -46,14 +46,12 @@ const StyledErrorText = styled.p`
     font-family: ${Theme.fonts.text};
     line-height: 18px;
     color: #f70556;
-    white-space: nowrap;
 `;
 const StyledText2 = styled.p`
     font-size: 12px;
     font-family: ${Theme.fonts.text};
     line-height: 18px;
     color: ${Theme.colors.secondary};
-    display: inline;
 `;
 
 const StyledImg = styled.img`
@@ -137,8 +135,8 @@ const AssetsSelector = ({curToken, changeAsset, fromNet, balance}) => {
                 </LogoDiv>
                 {
                     parseInt(fromNet.chainId) === chainId ?
-                    <StyledText>Balance: {balance} {curToken.symbol}</StyledText>:
-                    <StyledErrorText><StyledText2>Balance:</StyledText2> (Switch Network)</StyledErrorText>
+                    <StyledText>{balance} {curToken.symbol}</StyledText>:
+                    <StyledErrorText>Switch Network</StyledErrorText>
                 }
             </StyledButton>
             <StyledModal
@@ -161,7 +159,7 @@ const AssetsSelector = ({curToken, changeAsset, fromNet, balance}) => {
                             <StyledButton2
                                 onClick={(e) => handleSelect(e, item)}
                                 key={item.symbol}
-                                disabled={fromNet.symbol === 'BNB' && item.symbol === "ETH" || fromNet.symbol === 'ETH' && item.symbol === "BNB"}
+                                disabled={item.addresses[`${fromNet.symbol}`] === ""}
                             >
                                 <StyledImg src={getImageUrl(item.symbol)} alt="logo_img"/>
                                 <div>

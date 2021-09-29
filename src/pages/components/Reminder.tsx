@@ -27,26 +27,27 @@ const StyledTitle = styled.p<{color: string}>`
     line-height: 20px;
     color: ${({color}) => color};
     margin-left: 10px;
-`;
+// `;
 
-const reminder = {
-    "USDT": {
-        min: 'no limit',
-        max: 'no limit'
-    },
-    "CLO": {
-        min: 'no limit',
-        max: 'no limit'
-    },
-    "BNB": {
-        min: 'no limit',
-        max: 'no limit'
-    },
-    "ETH": {
-        min: 'no limit',
-        max: 'no limit'
-    }
-}
+// const reminder = {
+//     "USDT": {
+//         min: 'no limit',
+//         max: 'no limit'
+//     },
+//     "CLO": {
+//         min: 'no limit',
+//         max: 'no limit'
+//     },
+//     "BNB": {
+//         min: 'no limit',
+//         max: 'no limit'
+//     },
+//     "ETH": {
+//         min: 'no limit',
+//         max: 'no limit'
+//     }
+// }
+
 const Reminder = ({ symbol }) => {
 
     return (
@@ -55,8 +56,9 @@ const Reminder = ({ symbol }) => {
             <div>
                 <StyledTitle color={Theme.colors.primary}>Reminder</StyledTitle>
                 <Spacer height="10px" />
-                <StyledText color={Theme.colors.primary}>{`1. Minimum amount is ${reminder[symbol].min}.`}</StyledText>
-                <StyledText color={Theme.colors.primary}>{`2. Maximum amount is ${reminder[symbol].max}.`}</StyledText>
+                <StyledText color={Theme.colors.primary}>There is no limitation on the minimum or maximum amount to swap.</StyledText>
+                {/* <StyledText color={Theme.colors.primary}>{`1. Minimum amount is ${reminder[symbol].min}.`}</StyledText>
+                <StyledText color={Theme.colors.primary}>{`2. Maximum amount is ${reminder[symbol].max}.`}</StyledText> */}
             </div>
         </Container>
     )
