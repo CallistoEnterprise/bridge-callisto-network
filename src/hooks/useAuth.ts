@@ -14,7 +14,7 @@ import { setupNetwork } from 'utils/wallet'
 import useToast from 'hooks/useToast'
 
 const useAuth = () => {
-  const { activate, deactivate, chainId } = useWeb3React()
+  const { activate, deactivate } = useWeb3React()
   const { toastError } = useToast()
 
   const login = useCallback(

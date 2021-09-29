@@ -3,8 +3,6 @@ import { ethers } from "ethers";
 import { Contract } from '@ethersproject/contracts'
 import sample from 'lodash/sample'
 import { useEffect, useMemo, useState } from "react";
-// import { simpleRpcProvider } from "utils/providers";
-import erc20Abi from 'constants/abis/erc20.json'
 import WETH_ABI from 'constants/abis/weth.json'
 import { getContract } from "utils";
 import useActiveWeb3React from "./useActiveWeb3";

@@ -48,7 +48,7 @@ const StyledTitle = styled.p<{color: string}>`
 //     }
 // }
 
-const Reminder = ({ symbol }) => {
+const Reminder = () => {
 
     return (
         <Container>

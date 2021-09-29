@@ -82,7 +82,8 @@ const AddNetworkSection = ({curNet, toNet, step}) => {
         }        
     }
 
-    function toggleModal(e) {
+    function toggleModal() {
+
         setIsOpen(!isOpen)
     }
 

@@ -1,10 +1,9 @@
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { FaLongArrowAltRight, FaLongArrowAltDown } from 'react-icons/fa';
 import Web3 from 'web3'
 import { ethers } from 'ethers'
-import { WETH } from "@soy-libs/sdk"
 import { Spinner } from 'react-bootstrap';
 import { setupEthereumNetwork, setupNetwork, switchNetwork } from 'utils/wallet';
 import Spacer from 'components/Spacer';
@@ -24,7 +23,6 @@ import AmtInput from './components/AmtInput';
 import RecieveAddressInput from './components/RecieveAddressInput'
 import Reminder from './components/Reminder';
 import TxInput from './components/TxInput';
-import WalletModal from './components/WalletModal';
 
 const Container = styled.div`
     background-color: #FFFFFF;
@@ -125,7 +123,7 @@ const RightPane: React.FC = () => {
     const [rcvAddress, setRcvAddress] = useState("")
     const [manualClaim, setManualClaim] = useState(false)
     const [prevHash, setPrevHash] = useState("")
-    const [isOpen, setIsOpen] = useState(false)
+    // const [isOpen, setIsOpen] = useState(false)
 
     const chainError = (chainId !== parseInt(fromNetwork.chainId) || !chainId) && step === 0
 
@@ -347,7 +345,7 @@ const RightPane: React.FC = () => {
                     </StyledButton>
                 }
             <Spacer height="30px" />
-            <Reminder symbol={CurrentStatus.curAsset}/>
+            <Reminder/>
         </Container>
     )
 }
